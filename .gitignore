@@ -1,0 +1,17 @@
+# Data
+data/
+*.csv
+
+# Plots / outputs
+*.png
+
+# Python cache
+__pycache__/
+*.pyc
+
+# Mac system files
+.DS_Store
+
+# Virtual environment (if any)
+venv/
+.env
