@@ -1,8 +1,9 @@
 import pandas as pd
 from SCR.data_preprocessing import load_data, clean_data
 
+
 def basic_overview(df: pd.DataFrame) -> None:
-    """Print a quick overview of the dataset."""
+
     print("\n" + "=" * 60)
     print("BASIC OVERVIEW")
     print("=" * 60)
@@ -29,7 +30,6 @@ def basic_overview(df: pd.DataFrame) -> None:
 
 
 def add_time_features(df: pd.DataFrame) -> pd.DataFrame:
-
     df = df.copy()
 
     if not isinstance(df.index, pd.DatetimeIndex):
@@ -52,7 +52,6 @@ def add_time_features(df: pd.DataFrame) -> pd.DataFrame:
 
 
 def consumption_summaries(df: pd.DataFrame, value_col: str = "consumption") -> None:
-    """Print simple grouped summaries for consumption."""
     if value_col not in df.columns:
         raise ValueError(f"Column '{value_col}' not found. Available: {df.columns.tolist()}")
 
@@ -62,6 +61,12 @@ def consumption_summaries(df: pd.DataFrame, value_col: str = "consumption") -> N
 
     print("\n--- Consumption summary (overall) ---")
     print(df[value_col].describe().round(2))
+
+    print("\n--- Variability and peak indicators ---")
+    print("Std consumption:", round(df[value_col].std(), 2))
+    print("90th percentile:", round(df[value_col].quantile(0.90), 2))
+    print("95th percentile:", round(df[value_col].quantile(0.95), 2))
+    print("Peak / average ratio:", round(df[value_col].max() / df[value_col].mean(), 2))
 
     print("\n--- Average consumption by hour ---")
     print(df.groupby("hour")[value_col].mean().round(2))
@@ -79,7 +84,6 @@ def consumption_summaries(df: pd.DataFrame, value_col: str = "consumption") -> N
     print("Duplicate full rows:", df.duplicated().sum())
     print("Duplicate timestamps:", df.index.duplicated().sum())
 
-
     s = df[value_col].dropna()
     peak = s.idxmax()
     trough = s.idxmin()
@@ -88,7 +92,6 @@ def consumption_summaries(df: pd.DataFrame, value_col: str = "consumption") -> N
 
 
 def main():
-
     df_raw = load_data()
     df = clean_data(df_raw)
 

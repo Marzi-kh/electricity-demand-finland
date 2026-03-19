@@ -1,35 +1,34 @@
 Finland Electricity Consumption Analysis
-
 Overview:
-In this project, I explored electricity consumption in Finland using open data from Fingrid. The goal was to understand how electricity demand changes over time and what patterns can be observed across hours, days, and seasons.
-This kind of analysis is important for energy system planning, especially when thinking about renewable energy and the transition to a more sustainable system.
+This project analyzes electricity consumption in Finland using open data from Fingrid. 
+The goal is to understand demand patterns over time and build a baseline forecasting model to support energy planning.
 Data:
-The data comes from Fingrid’s open data platform and includes electricity consumption measured every 15 minutes. I worked with roughly one year of data to capture seasonal effects.
-
-I followed a simple but structured workflow:
-Cleaned the data and converted timestamps into a usable format
-Organized the data as a time series
-Created basic time-related features like hour, weekday, and month
-Grouped the data to understand patterns
-Built a few simple visualizations to highlight trends
-Key findings
-A few things stood out clearly:
-Electricity consumption is much higher in winter than in summer. This is likely due to heating demand.
-February had the highest average consumption, while summer months like July were the lowest.
-There is a clear daily pattern, with higher consumption during daytime hours.
-Demand tends to be lower on weekends compared to weekdays.
-There are significant peaks and lows in the data, showing how variable electricity demand can be.
-Simple forecasting model
-I also built a very simple machine learning model (Random Forest) to predict electricity consumption using only time-based features (hour, weekday, month).
-The model achieved a mean absolute error of about 1,356 MWh, which is roughly 13% of average consumption.
-This shows that time alone explains a large part of electricity demand, although adding weather or temperature data would likely improve the model.
-Why this matters
-Understanding how electricity demand changes over time is important for:
-planning energy systems
-integrating renewable energy
-managing peak demand
-supporting decarbonization
-This project is a small example of how data can be used to support decisions in the energy sector.
+The dataset contains ~1 year of electricity consumption data at 15-minute intervals.
+Approach:
+Data cleaning and validation
+Time-series structuring and feature engineering (hour, weekday, month)
+Exploratory analysis of temporal patterns
+Baseline forecasting using Random Forest
+Time-series cross-validation for evaluation
+Key Insights:
+Strong seasonality: winter demand ~35% higher than summer
+Clear daily pattern: higher during daytime, lower overnight
+Weekend effect: demand decreases on weekends
+Peak demand reaches ~1.4× average load
+Demand is highly predictable based on time features
+Model:
+A Random Forest model was used as a baseline with time-based features only.
+Average MAE ≈ 935 MWh (~10% of average demand) using time-series validation.
+Why This Matters:
+Supports energy production planning
+Helps manage peak demand
+Improves supply–demand balancing
+Supports renewable energy integration
+Next Steps:
+Incorporate weather data (e.g., temperature)
+Add lag features to capture temporal dependencies
+Use advanced models (e.g., Gradient Boosting)
+Develop real-time forecasting pipeline
 
 
 

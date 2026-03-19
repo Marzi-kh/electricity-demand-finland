@@ -1,10 +1,10 @@
 from pathlib import Path
 import pandas as pd
 
-def load_data():
+def load_data() -> pd.DataFrame:
     base_dir = Path(__file__).resolve().parents[1]
-    file_path = base_dir / "Data" / "124_2025-01-01T0000_2026-12-31T2355.csv"
-    print("looking here:",file_path )
+    file_path = base_dir / "Data" / "data.csv"
+    print("looking here:", file_path)
     df = pd.read_csv(file_path, sep=";", engine="python")
     df.columns = df.columns.astype(str).str.replace('"', '').str.strip()
     return df
@@ -21,6 +21,7 @@ def clean_data(df: pd.DataFrame) -> pd.DataFrame:
     df = df.dropna(subset=["startTime", "consumption"])
 
     df = df.set_index("startTime").sort_index()
+    df = df[~df.index.duplicated(keep="first")]
 
     df = df.drop(columns=["endTime"], errors="ignore")
 
